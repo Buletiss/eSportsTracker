@@ -20,12 +20,10 @@ export class LolService {
     const response = await lastValueFrom(
       this.httpService
         .get(url, { headers })
-        .pipe(map(resp => resp.data)),
+        .pipe(map(resp => resp.data.data.schedule.events)),
     );
 
-    const response_log = response.data.schedule.events;
-
-    var arrayFilter = response_log.map(e => {
+    var responseMap = response.map(e => {
       var filtro = {
         startTime: e.startTime,
         state: e.state,
@@ -43,6 +41,6 @@ export class LolService {
       console.log(filtro);
       return filtro;
     });
-    return arrayFilter;
+    return responseMap;
   }
 }
