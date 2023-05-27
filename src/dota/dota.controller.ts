@@ -7,7 +7,7 @@ export class DotaController {
     this.dotaService = dotaService;
   }
   @Get()
-  GetAllLeagues(): string {
+  GetAllLeagues() {
     return this.dotaService.GetAllLeagues();
   }
 }

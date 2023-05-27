@@ -1,15 +1,18 @@
-import { Injectable } from "@nestjs/common";
-// import { HttpService } from "@nestjs/axios";
+import { Dependencies, Injectable } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
+import { lastValueFrom, map } from "rxjs";
 
 @Injectable()
+@Dependencies(HttpService)
 export class DotaService {
-  // constructor(private httpService: HttpService) {
-  //   this.httpService = httpService;
-  // }
+  constructor(private httpService: HttpService) {
+    this.httpService = httpService;
+  }
 
-  // constructor(private dota: []) {}
+  async GetAllLeagues() {
+    const url = "https://api.opendota.com/api/leagues";
 
-  GetAllLeagues(): string {
-    return "rota test";
+    const response = await lastValueFrom(this.httpService.get(url).pipe(map(resp => resp.data)));
+    return response;
   }
 }
