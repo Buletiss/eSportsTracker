@@ -10,11 +10,39 @@ export class LolService {
   }
 
   async findAll() {
-    const url = "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=pt-BR";
-    const apiKey = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z";
+    const url =
+      "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=pt-BR";
+    const apiKey =
+      "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z";
 
     const headers = { "x-api-key": apiKey };
-    const response = await lastValueFrom(this.httpService.get(url, { headers }).pipe(map(resp => resp.data.data.schedule.events)));
-    return response;
+
+    const response = await lastValueFrom(
+      this.httpService
+        .get(url, { headers })
+        .pipe(map(resp => resp.data)),
+    );
+
+    const response_log = response.data.schedule.events;
+
+    var arrayFilter = response_log.map(e => {
+      var filtro = {
+        startTime: e.startTime,
+        state: e.state,
+        blockName: e.blockName,
+        league: {
+          name: e.league.name,
+          slug: e.league.slug,
+        },
+        match: {
+          id: e.match.id,
+          teamRed: e.match.teams[0],
+          teamBlue: e.match.teams[1],
+        },
+      };
+      console.log(filtro);
+      return filtro;
+    });
+    return arrayFilter;
   }
 }
