@@ -24,7 +24,7 @@ export class LolService {
     );
 
     var responseMap = response.map(e => {
-      var filtro = {
+      var filterArray = {
         startTime: e.startTime,
         state: e.state,
         blockName: e.blockName,
@@ -38,8 +38,7 @@ export class LolService {
           teamBlue: e.match.teams[1],
         },
       };
-      console.log(filtro);
-      return filtro;
+      return filterArray;
     });
     return responseMap;
   }
