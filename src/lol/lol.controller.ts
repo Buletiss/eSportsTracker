@@ -18,14 +18,10 @@ export class LolsController {
 
     const totalMatch = allLols.length;
 
-    if (paginatedLols != null) {
-      return {
-        data: paginatedLols.length ? paginatedLols : "Pagina Não encontrada",
-        totalMatch: totalMatch,
-        maxPages: Math.ceil(totalMatch / limitPerPage),
-      };
-    } else {
-      return { data: "send nullable text" };
-    }
+    return {
+      data: paginatedLols.length ? paginatedLols : "Pagina Não encontrada",
+      totalMatch: totalMatch,
+      maxPages: Math.ceil(totalMatch / limitPerPage),
+    };
   }
 }
